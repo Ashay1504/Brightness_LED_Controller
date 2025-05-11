@@ -58,13 +58,7 @@ The PWM controller adjusts the brightness by varying the duty cycle of the PWM s
 
 The top-level design maps the PWM output signal to the appropriate GPIO pins of the DE10 Standard board, which are connected to the LEDs.
 
-### SCOMP Assembly Games
-
-#### Main Game
-The primary game is developed in SCOMP assembly language and interacts with the LED brightness controller. It demonstrates real-time changes in LED brightness based on game logic. The game logic includes:
-- **Interactive Controls**: Use switches or buttons on the DE10 Standard board to interact with the game.
-- **Dynamic Brightness Changes**: Game events trigger changes in LED brightness levels.
-- **User Feedback**: LEDs provide visual feedback for game progress.
+### SCOMP Assembly Game
 
 #### Whack-a-Mole
 The "Whack-a-Mole" game is designed to showcase the responsiveness and interactivity of the LED brightness controller. Gameplay involves:
