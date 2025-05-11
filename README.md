@@ -136,17 +136,17 @@ end Behavioral;
 ### Whack-a-Mole Game (Snippet)
 
 ```assembly
-; Whack-a-Mole game in SCOMP assembly
-START:  LDI R1, 0      ; Initialize score
-        LDI R2, 0      ; Initialize LED state
-LOOP:   RANDOM R3       ; Generate random LED
-        OUT R3, LED     ; Light up random LED
-        IN R4, SWITCH   ; Read player input
-        CMP R3, R4      ; Check if correct LED was hit
-        BEQ HIT         ; If hit, branch to HIT
-MISS:   JMP LOOP        ; If missed, continue
-HIT:    ADD R1, 1       ; Increment score
-        JMP LOOP        ; Continue game
+; whack-a-mole
+ORG 0
+
+startGameAnimation:
+	; animation
+	LOAD Score
+	OUT Hex0
+	CALL RunStartAnimation
+	CALL RunStartAnimation
+	CALL RunStartAnimation
+
 ```
 
 ---
