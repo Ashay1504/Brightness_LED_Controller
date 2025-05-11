@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "not_applicable",
+		"error_message" : "Access Violation at 0X00000003141132D0",
+		"source_file" : "unknown",
+		"line" : "0",
+		"stack_trace" : "\t0x3141132cf:\n\t0x6fffff89903b: ole32 + 0x903b\n\t0x6fffff89a502: ole32 + 0xa502\n\t 0x7b23b14d: qtgui4 + 0x8b14d\n\t0x6fffe6243cec: edt_tedq + 0x13cec\n\t0x6fffe6244c73: edt_tedq + 0x14c73\n\t0x6fffe6243666: edt_tedq + 0x13666\n\t0x6fffe6244a53: edt_tedq + 0x14a53\n\t 0x7bc80894: qtcore4 + 0x120894\n\t 0x7b212a32: qtgui4 + 0x62a32\n\t 0x7b54cbc0: qtgui4 + 0x39cbc0\n\t 0x7b1d2f95: qtgui4 + 0x22f95\n\t 0x7b1d2c2f: qtgui4 + 0x22c2f\n\t 0x7bc6e67b: qtcore4 + 0x10e67b\n\t 0x7bc70252: qtcore4 + 0x110252\n\t 0x7bc94138: qtcore4 + 0x134138\n\t0x6fffff629e51: user32 + 0x59e51\n\t0x6fffff62bfc3: user32 + 0x5bfc3\n\t0x6fffff611e00: user32 + 0x41e00\n\t0x6fffff6141bc: user32 + 0x441bc\n\t 0x7bc93982: qtcore4 + 0x133982\n\t 0x7b232074: qtgui4 + 0x82074\n\t 0x7bc6b5db: qtcore4 + 0x10b5db\n\t 0x7bc6dbbf: qtcore4 + 0x10dbbf\n\t0x14000198b: quartus + 0x198b\n\t0x6ffffde83258: ccl_msg + 0x13258\n\t0x6ffffde84a5e: ccl_msg + 0x14a5e\n\t0x6ffffe326af0: ccl_mem + 0x16af0\n\t0x6ffffde82af1: ccl_msg + 0x12af1\n\t0x140002777: quartus + 0x2777\n\t0x140001f40: quartus + 0x1f40 (__tmainCRTStartup + 0x148)\n\t0x6fffffee9158: kernel32 + 0x29158\n\t0x6ffffff9691a: ntdll + 0x5691a\n",
+		"subsystem" : "unknown"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "20.1.1",
+		"build" : "720",
+		"edition" : "Lite Edition"
+	}
+}

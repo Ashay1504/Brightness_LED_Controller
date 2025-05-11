@@ -1,0 +1,306 @@
+WIDTH=16;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+0000: 0914; -- 	LOAD Score
+0001: 9804; -- 	OUT Hex0
+0002: 8080; -- 	CALL RunStartAnimation
+0003: 8080; -- 	CALL RunStartAnimation
+0004: 8080; -- 	CALL RunStartAnimation
+0005: 091B; -- 	LOAD all_lights
+0006: 9821; -- 	OUT LEDs_p
+0007: 0928; -- 	LOAD full_br
+0008: 9820; -- 	OUT Gamma_p
+0009: 0915; -- 	LOAD randNum
+000A: 6801; -- 	ADDI 1
+000B: 1115; -- 	STORE randNum
+000C: 9000; -- 	IN Switches
+000D: 4917; -- 	AND Bit9 ; check sw9
+000E: 3810; -- 	JPOS nextRound
+000F: 2805; -- 	JUMP startGameLoop
+0010: 0914; -- 	LOAD Score
+0011: 9805; -- 	OUT Hex1
+0012: 803F; -- 	CALL getMoleLocation
+0013: 80CA; -- 	CALL RunRisingAnimation
+0014: 9802; -- 	OUT Timer ; reset timer
+0015: 802D; -- 	CALL moleCaptureLoop
+0016: 0914; -- 		LOAD Score
+0017: 6801; -- 		ADDI 1
+0018: 1114; -- 		STORE Score ; increment score by 1 upon capturingMole
+0019: 0914; -- 		LOAD Score
+001A: 9805; -- 		OUT Hex1
+001B: 80F0; -- 	CALL RunFallingAnimation
+001C: 0914; -- 	LOAD Score
+001D: 6FF6; -- 	ADDI -10
+001E: 4020; -- 	JZERO winAnimation
+001F: 2810; -- 	JUMP nextRound
+0020: 8089; -- 	CALL BlinkLights
+0021: 0928; -- 	LOAD full_br
+0022: 9820; -- 	OUT Gamma_p
+0023: 091C; -- 	LOAD alt_lights
+0024: 9821; -- 	OUT LEDs_p
+0025: 091D; -- 	LOAD dif_lights
+0026: 9821; -- 	OUT LEDs_p
+0027: B800; -- 	LOADI 0
+0028: 1114; -- 	STORE Score
+0029: 9000; -- 	IN Switches
+002A: 4917; -- 	AND Bit9 ; check sw9
+002B: 3800; -- 	JPOS startGameAnimation
+002C: 2820; -- 	JUMP winAnimation
+002D: 9002; -- 	IN Timer
+002E: 1119; -- 	STORE TimeSpent
+002F: 0915; -- 	LOAD randNum
+0030: 6801; -- 	ADDI 1
+0031: 1115; -- 	STORE randNum
+0032: 0919; -- 	LOAD TimeSpent
+0033: 6FE7; -- 	ADDI -25
+0034: 383A; -- 	JPOS decreaseScore
+0035: 9000; -- 	IN Switches
+0036: 491A; -- 	AND moleLocation 
+0037: 402D; -- 	JZERO moleCaptureLoop ; if switches != moleLocation, go back to moleCaptureLoop
+0038: 0000; -- 		NOP
+0039: 8800; -- 	RETURN
+003A: 0914; -- 	LOAD Score
+003B: 6FFF; -- 	ADDI -1
+003C: 3038; -- 	JNEG returnFromDecreaseScore ; set back to 0
+003D: 1114; -- 	STORE Score
+003E: 2838; -- 	JUMP returnFromDecreaseScore
+003F: 0915; -- 	LOAD randNum
+0040: 4918; -- 	AND AND_const
+0041: 1116; -- 	STORE randNum_AND
+0042: 0916; -- 	LOAD randNum_AND
+0043: 407D; -- 	JZERO ifZero
+0044: 0916; -- 	LOAD randNum_AND
+0045: 6FF7; -- 	ADDI -9
+0046: 4062; -- 	JZERO ifNine
+0047: 0916; -- 	LOAD randNum_AND
+0048: 6FF8; -- 	ADDI -8
+0049: 4065; -- 	JZERO ifEight
+004A: 0916; -- 	LOAD randNum_AND
+004B: 6FF9; -- 	ADDI -7
+004C: 4068; -- 	JZERO ifSeven	
+004D: 0916; -- 	LOAD randNum_AND
+004E: 6FFA; -- 	ADDI -6
+004F: 406B; -- 	JZERO ifSix
+0050: 0916; -- 	LOAD randNum_AND
+0051: 6FFB; -- 	ADDI -5
+0052: 406E; -- 	JZERO ifFive
+0053: 0916; -- 	LOAD randNum_AND
+0054: 6FFC; -- 	ADDI -4
+0055: 4071; -- 	JZERO ifFour
+0056: 0916; -- 	LOAD randNum_AND
+0057: 6FFD; -- 	ADDI -3
+0058: 4074; -- 	JZERO ifThree
+0059: 0916; -- 	LOAD randNum_AND
+005A: 6FFE; -- 	ADDI -2
+005B: 4077; -- 	JZERO ifTwo
+005C: 0916; -- 	LOAD randNum_AND
+005D: 6FFF; -- 	ADDI -1
+005E: 407A; -- 	JZERO ifOne
+005F: 0916; -- 	LOAD randNum_AND
+0060: 807D; -- 	CALL ifZero
+0061: 8800; -- 	RETURN
+0062: BA00; -- 	LOADI &B0000001000000000
+0063: 111A; -- 	STORE moleLocation
+0064: 2813; -- 	JUMP nextRoundJumpTo
+0065: B900; -- 	LOADI &B0000000100000000
+0066: 111A; -- 	STORE moleLocation
+0067: 2813; -- 	JUMP nextRoundJumpTo
+0068: B880; -- 	LOADI &B0000000010000000
+0069: 111A; -- 	STORE moleLocation
+006A: 2813; -- 	JUMP nextRoundJumpTo
+006B: B840; -- 	LOADI &B0000000001000000
+006C: 111A; -- 	STORE moleLocation
+006D: 2813; -- 	JUMP nextRoundJumpTo
+006E: B820; -- 	LOADI &B0000000000100000
+006F: 111A; -- 	STORE moleLocation
+0070: 2813; -- 	JUMP nextRoundJumpTo
+0071: B810; -- 	LOADI &B0000000000010000
+0072: 111A; -- 	STORE moleLocation
+0073: 2813; -- 	JUMP nextRoundJumpTo
+0074: B808; -- 	LOADI &B0000000000001000
+0075: 111A; -- 	STORE moleLocation
+0076: 2813; -- 	JUMP nextRoundJumpTo
+0077: B804; -- 	LOADI &B0000000000000100
+0078: 111A; -- 	STORE moleLocation
+0079: 2813; -- 	JUMP nextRoundJumpTo
+007A: B802; -- 	LOADI &B0000000000000010
+007B: 111A; -- 	STORE moleLocation
+007C: 2813; -- 	JUMP nextRoundJumpTo
+007D: B801; -- 	LOADI &B0000000000000001
+007E: 111A; -- 	STORE moleLocation
+007F: 2813; -- 	JUMP nextRoundJumpTo
+0080: 8089; -- 	CALL BlinkLights
+0081: 0928; -- 	LOAD full_br
+0082: 8084; -- 	CALL Delay
+0083: 8800; -- 	RETURN
+0084: 9802; --  	OUT Timer
+0085: 9002; --     IN Timer
+0086: 6FFF; --     ADDI -1 ; 100ms second delay
+0087: 3085; --     JNEG WaitingLoop
+0088: 8800; --     RETURN
+0089: 091B; --     LOAD all_lights
+008A: 9821; --     OUT LEDs_p
+008B: 091E; -- 	Load zero_br
+008C: 9820; -- 	OUT Gamma_p
+008D: 8084; -- 	CALL Delay
+008E: 8084; -- 	CALL Delay
+008F: 8084; -- 	CALL Delay
+0090: 091F; --     LOAD ten_br
+0091: 9820; --     OUT Gamma_p
+0092: 8084; --     CALL Delay
+0093: 0920; --     LOAD twenty_br
+0094: 9820; --     OUT Gamma_p
+0095: 8084; --     CALL Delay
+0096: 0921; --     LOAD thirty_br
+0097: 9820; --     OUT Gamma_p
+0098: 8084; --     CALL Delay
+0099: 0922; --     LOAD forty_br
+009A: 9820; --     OUT Gamma_p
+009B: 8084; --     CALL Delay
+009C: 0923; --     LOAD fifty_br
+009D: 9820; --     OUT Gamma_p
+009E: 8084; --     CALL Delay
+009F: 0924; --     LOAD sixty_br
+00A0: 9820; --     OUT Gamma_p
+00A1: 8084; --     CALL Delay
+00A2: 0925; --     LOAD seventy_br
+00A3: 9820; --     OUT Gamma_p
+00A4: 8084; --     CALL Delay
+00A5: 0926; --     LOAD eighty_br
+00A6: 9820; --     OUT Gamma_p
+00A7: 8084; --     CALL Delay
+00A8: 0927; --     LOAD ninety_br
+00A9: 9820; --     OUT Gamma_p
+00AA: 8084; --     CALL Delay
+00AB: 0928; --     LOAD full_br
+00AC: 9820; --     OUT Gamma_p
+00AD: 8084; --     CALL Delay
+00AE: 0927; --     LOAD ninety_br
+00AF: 9820; --     OUT Gamma_p
+00B0: 8084; --     CALL Delay
+00B1: 0926; --     LOAD eighty_br
+00B2: 9820; --     OUT Gamma_p
+00B3: 8084; --     CALL Delay
+00B4: 0925; --     LOAD seventy_br
+00B5: 9820; --     OUT Gamma_p
+00B6: 8084; --     CALL Delay
+00B7: 0924; --     LOAD sixty_br
+00B8: 9820; --     OUT Gamma_p
+00B9: 8084; --     CALL Delay
+00BA: 0923; --     LOAD fifty_br
+00BB: 9820; --     OUT Gamma_p
+00BC: 8084; --     CALL Delay
+00BD: 0922; --     LOAD forty_br
+00BE: 9820; --     OUT Gamma_p
+00BF: 8084; --     CALL Delay
+00C0: 0921; --     LOAD thirty_br
+00C1: 9820; --     OUT Gamma_p
+00C2: 8084; --     CALL Delay
+00C3: 0920; --     LOAD twenty_br
+00C4: 9820; --     OUT Gamma_p
+00C5: 8084; --     CALL Delay
+00C6: 091F; --     LOAD ten_br
+00C7: 9820; --     OUT Gamma_p
+00C8: 8084; --     CALL Delay  
+00C9: 8800; --     RETURN
+00CA: 091A; --     LOAD moleLocation
+00CB: 9821; --     OUT LEDs_p
+00CC: 091E; -- 	Load zero_br
+00CD: 9820; -- 	OUT Gamma_p
+00CE: 8084; -- 	CALL Delay
+00CF: 8084; -- 	CALL Delay
+00D0: 8084; -- 	CALL Delay
+00D1: 091F; --     LOAD ten_br
+00D2: 9820; --     OUT Gamma_p
+00D3: 8084; --     CALL Delay
+00D4: 0920; --     LOAD twenty_br
+00D5: 9820; --     OUT Gamma_p
+00D6: 8084; --     CALL Delay
+00D7: 0921; --     LOAD thirty_br
+00D8: 9820; --     OUT Gamma_p
+00D9: 8084; --     CALL Delay
+00DA: 0922; --     LOAD forty_br
+00DB: 9820; --     OUT Gamma_p
+00DC: 8084; --     CALL Delay
+00DD: 0923; --     LOAD fifty_br
+00DE: 9820; --     OUT Gamma_p
+00DF: 8084; --     CALL Delay
+00E0: 0924; --     LOAD sixty_br
+00E1: 9820; --     OUT Gamma_p
+00E2: 8084; --     CALL Delay
+00E3: 0925; --     LOAD seventy_br
+00E4: 9820; --     OUT Gamma_p
+00E5: 8084; --     CALL Delay
+00E6: 0926; --     LOAD eighty_br
+00E7: 9820; --     OUT Gamma_p
+00E8: 8084; --     CALL Delay
+00E9: 0927; --     LOAD ninety_br
+00EA: 9820; --     OUT Gamma_p
+00EB: 8084; --     CALL Delay
+00EC: 0928; --     LOAD full_br
+00ED: 9820; --     OUT Gamma_p
+00EE: 8084; --     CALL Delay
+00EF: 8800; --     RETURN
+00F0: 091A; -- 	LOAD moleLocation
+00F1: 9821; -- 	OUT LEDs_p
+00F2: 0928; -- 	LOAD full_br
+00F3: 9820; -- 	OUT Gamma_p
+00F4: 8084; --     CALL Delay
+00F5: 0927; --     LOAD ninety_br
+00F6: 9820; --     OUT Gamma_p
+00F7: 8084; --     CALL Delay
+00F8: 0926; --     LOAD eighty_br
+00F9: 9820; --     OUT Gamma_p
+00FA: 8084; --     CALL Delay
+00FB: 0925; --     LOAD seventy_br
+00FC: 9820; --     OUT Gamma_p
+00FD: 8084; --     CALL Delay
+00FE: 0924; --     LOAD sixty_br
+00FF: 9820; --     OUT Gamma_p
+0100: 8084; --     CALL Delay
+0101: 0923; --     LOAD fifty_br
+0102: 9820; --     OUT Gamma_p
+0103: 8084; --     CALL Delay
+0104: 0922; --     LOAD forty_br
+0105: 9820; --     OUT Gamma_p
+0106: 8084; --     CALL Delay
+0107: 0921; --     LOAD thirty_br
+0108: 9820; --     OUT Gamma_p
+0109: 8084; --     CALL Delay
+010A: 0920; --     LOAD twenty_br
+010B: 9820; --     OUT Gamma_p
+010C: 8084; --     CALL Delay
+010D: 091F; --     LOAD ten_br
+010E: 9820; --     OUT Gamma_p
+010F: 8084; --     CALL Delay
+0110: 091E; --     LOAD zero_br
+0111: 9820; --     OUT Gamma_p
+0112: 8084; --     Call Delay
+0113: 8800; --     RETURN
+0114: 0000; -- Score:		DW 0
+0115: 0000; -- randNum:	DW 0
+0116: 0000; -- randNum_AND: DW 0
+0117: 0200; -- Bit9:		DW &B1000000000 ; used for masking with bit9
+0118: 000F; -- AND_const:	DW &B0000000000001111 ; 
+0119: 0000; -- TimeSpent:  DW 0
+011A: 03FF; -- moleLocation: DW &B0000001111111111
+011B: 03FF; -- all_lights: DW &B0000001111111111
+011C: 02AA; -- alt_lights: DW &B0000001010101010
+011D: 0155; -- dif_lights: DW &B0000000101010101
+011E: 0000; -- zero_br:	DW &B0000000000000000
+011F: 001A; -- ten_br:		DW &B0000000000011010
+0120: 0034; -- twenty_br:	DW &B0000000000110100
+0121: 004D; -- thirty_br:	DW &B0000000001001101
+0122: 0067; -- forty_br:	DW &B0000000001100111
+0123: 0080; -- fifty_br:	DW &B0000000010000000
+0124: 009A; -- sixty_br:	DW &B0000000010011010
+0125: 00B3; -- seventy_br: DW &B0000000010110011
+0126: 00CD; -- eighty_br:	DW &B0000000011001101
+0127: 00E6; -- ninety_br:	DW &B0000000011100110
+0128: 00FF; -- full_br:	DW &B0000000011111111
+[0129..07FF] : 0000; -- [empty memory]
+END;
